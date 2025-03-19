@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <link rel="stylesheet" type="text/css" href="/views/styles.css" />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH"
+      crossorigin="anonymous"
+    />
+    <script
+      defer
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+      crossorigin="anonymous"
+    ></script>
+    <title>WorkoutWave</title>
+    <style>
+      input[type='number']{
+      width: 60px;
+      } 
+    </style>
+  </head>
+  <body>
+    <div class="header">
+      <h1>Macro Nutrient and Calorie Calculator</h1>
+    </div>
+    <div class="container-fluid">
+      <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <a class="navbar-brand" href="#"></a>
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarNav"
+          aria-controls="navbarNav"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+          <ul class="navbar-nav nav-tabs">
+            <li class="nav-item">
+              <a class="nav-link" href="/home">Home</a>
+            </li>
+            <li class="nav-item active">
+              <a class="nav-link active" href="/calculator">Calculator</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/workout">Workout</a>
+            </li>
+            <li class="nav-item me-2" id="logout">
+              <a class="nav-link" href="/">Logout</a>
+            </li>
+          </ul>
+        </div>
+      </nav>
+      <div class="row mt-3">
+        <div class="col-2">
+          <div class="d-flex row justify-content-center">
+            <div class="d-flex row">
+              <div class="d-flex col-12 mb-1 justify-content-center">
+                <h4>Saved Meals</h4>
+              </div>
+          
+            </div>
+          </div>
+          <div class="d-flex row justify-content-center">
+            
+            <aside class="sidebar mt-1">
+              <nav class="sidebar-inner">
+                <table class="table" id="SavedMeals">
+                      <thead>
+                        <tr>
+                          <th id="Mealname" class="col justify-content-center" style="width:40%">Meal</th>
+                          <th class="col"></th>
+                          <th class="col"></th>
+                          <th class="col"></th>
+                          <th class="col"></th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        {{ #SavedMeals }}
+                          <tr>
+                            <td>{{Name}}</td>
+                            <td><a href="/calculator/deployMealBreakfast/{{rowid}}">B</a></td>
+                            <td><a href="/calculator/deployMealLunch/{{rowid}}">L</a></td>
+                            <td><a href="/calculator/deployMealDinner/{{rowid}}">D</a></td>
+                            <td><a href="/calculator/deleteSavedMeals/{{rowid}}">D</a></td>
+                          </tr>
+                        {{ /SavedMeals }}
+                      </tbody>
+                    </table>
+              </nav>
+            </aside>
+            
+          </div>
+        </div>
+        <div class="col-10">
+          <div class="d-flex row mb-10">
+            <div class="d-flex col-4 justify-content-center">
+              <div class="d-flex row justify-content-center">
+                <div class="row mb-1">
+                  <div class="d-flex col-12 justify-content-center">
+                    <h4>Breakfast</h4>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="table-responsive">
+                    <table class="table" id="Meal">
+                      <thead>
+                        <tr>
+                          <th id="Mealname" class="col justify-content-center" style="width:40%">Meal</th>
+                          <th class="col">Protein</th>
+                          <th class="col">Fat</th>
+                          <th class="col">Carbs</th>
+                          <th class="col">Cal</th>
+                          <th class="col"></th>
+                          <th class="col"></th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        {{ #breakfastFood }}
+                          <tr>
+                            <td>{{Name}}</td>
+                            <td>{{Protein}}</td>
+                            <td>{{Fat}}</td>
+                            <td>{{Carbs}}</td>
+                            <td>{{Cals}}</td>
+                            <td><a href="/calculator/saveBreakfastInfo/{{rowid}}">S</a></td>
+                            <td><a href="/calculator/deleteBreakfastInfo/{{rowid}}">D</a></td>
+                          </tr>
+                        {{ /breakfastFood }}
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+                <div class="row">
+                  {{ #displayFormLink }}
+                  <a href="/calculator/addBreakfastForm">Add a Meal</a>
+                  {{ /displayFormLink }}
+                  {{ #displayCloseLink}}
+                  <a href="/calculator/closeBreakfastForm">Close Forms</a>
+                  {{ /displayCloseLink}}
+                  {{ #Breakfast }}
+                  <form name="Breakfast" action="/calculator/addBreakfast" method="post">
+                    <div class="row">
+                      <label for="M">Mealname:</label>
+                      <input name="Name" type="text" id="M" value="">
+                    </div>
+                    <div class="row">
+                      <label for="P">Protein:</label>
+                      <input name="Protein" type="number" id="P" value="">
+                    </div>
+                    <div class="row">
+                      <label for="F">Fat:</label>
+                      <input name="Fat" type="number" id="F" value="">
+                    </div>
+                    <div class="row">
+                      <label for="C">Carbs:</label>
+                      <input name="Carbs" type="number" id="C" value="">
+                    </div>
+                    <div class="row">
+                      <label for="K">Cal:</label>
+                      <input name="Cals" type="number" id="K" value="">
+                    </div>
+                    <div class="row">
+                      <button type="submit" value="Submit" id="AddButton">
+                        Add Meal to table
+                      </button>
+                      <button type="button" id="ClearButton" onclick="location.href='/calculator/deleteBreakfast';">
+                        Clear
+                      </button>
+                    </div>
+                  </form>
+                  {{ /Breakfast }}
+                </div>
+              </div>
+            </div>
+            <div class="d-flex col-4 justify-content-center">
+              <div class="d-flex row justify-content-center">
+                <div class="row mb-1">
+                  <div class="d-flex col-12 justify-content-center">
+                    <h4>Lunch</h4>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="table-responsive">
+                    <table class="table" id="Meal">
+                      <thead>
+                        <tr>
+                          <th id="Mealname" class="col justify-content-center" style="width:40%">Meal</th>
+                          <th class="col">Protein</th>
+                          <th class="col">Fat</th>
+                          <th class="col">Carbs</th>
+                          <th class="col">Cal</th>
+                          <th class="col"></th>
+                          <th class="col"></th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        {{ #lunchFood }}
+                          <tr>
+                            <td>{{Name}}</td>
+                            <td>{{Protein}}</td>
+                            <td>{{Fat}}</td>
+                            <td>{{Carbs}}</td>
+                            <td>{{Cals}}</td>
+                            <td><a href="/calculator/saveLunchInfo/{{rowid}}">S</a></td>
+                            <td><a href="/calculator/deleteLunchInfo/{{rowid}}">D</a></td>
+                          </tr>
+                        {{ /lunchFood }}
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+                <div class="row">
+                  {{ #Lunch }}
+                  <form name="Lunch" action="/calculator/addLunch" method="post">
+                    <div class="row">
+                      <label for="M">Mealname:</label>
+                      <input name="Name" type="text" id="M" value="">
+                    </div>
+                    <div class="row">
+                      <label for="P">Protein:</label>
+                      <input name="Protein" type="number" id="P" value="">
+                    </div>
+                    <div class="row">
+                      <label for="F">Fat:</label>
+                      <input name="Fat" type="number" id="F" value="">
+                    </div>
+                    <div class="row">
+                      <label for="C">Carbs:</label>
+                      <input name="Carbs" type="number" id="C" value="">
+                    </div>
+                    <div class="row">
+                      <label for="K">Cal:</label>
+                      <input name="Cals" type="number" id="K" value="">
+                    </div>
+                    <div class="row">
+                      <button type="submit" value="Submit" id="AddButton">
+                        Add Meal to table
+                      </button>
+                      <button type="button" id="ClearButton" onclick="location.href='/calculator/deleteLunch';">
+                        Clear
+                      </button>
+                    </div>
+                  </form>
+                  {{ /Lunch }}
+                </div>
+              </div>
+            </div>
+            <div class="d-flex col-4 justify-content-center">
+              <div class="d-flex row justify-content-center">
+                <div class="row mb-1">
+                  <div class="d-flex col-12 justify-content-center">
+                    <h4>Dinner</h4>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="table-responsive">
+                    <table class="table" id="Meal">
+                      <thead>
+                        <tr>
+                          <th id="Mealname" class="col justify-content-center" style="width:40%">Meal</th>
+                          <th class="col">Protein</th>
+                          <th class="col">Fat</th>
+                          <th class="col">Carbs</th>
+                          <th class="col">Cal</th>
+                          <th class="col"></th>
+                          <th class="col"></th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        {{ #dinnerFood }}
+                          <tr>
+                            <td>{{Name}}</td>
+                            <td>{{Protein}}</td>
+                            <td>{{Fat}}</td>
+                            <td>{{Carbs}}</td>
+                            <td>{{Cals}}</td>
+                            <td><a href="/calculator/saveDinnerInfo/{{rowid}}">S</a></td>
+                            <td><a href="/calculator/deleteDinnerInfo/{{rowid}}">D</a></td>
+                          </tr>
+                        {{ /dinnerFood }}
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+                <div class="row">
+                  {{ #Dinner }}
+                  <form name="Dinner" action="/calculator/addDinner" method="post">
+                    <div class="row">
+                      <label for="M">Mealname:</label>
+                      <input name="Name" type="text" id="M" value="">
+                    </div>
+                    <div class="row">
+                      <label for="P">Protein:</label>
+                      <input name="Protein" type="number" id="P" value="">
+                    </div>
+                    <div class="row">
+                      <label for="F">Fat:</label>
+                      <input name="Fat" type="number" id="F" value="">
+                    </div>
+                    <div class="row">
+                      <label for="C">Carbs:</label>
+                      <input name="Carbs" type="number" id="C" value="">
+                    </div>
+                    <div class="row">
+                      <label for="K">Cal:</label>
+                      <input name="Cals" type="number" id="K" value="">
+                    </div>
+                    <div class="row">
+                      <button type="submit" value="Submit" id="AddButton">
+                        Add Meal to table
+                      </button>
+                      <button type="button" id="ClearButton" onclick="location.href='/calculator/deleteDinner';">
+                        Clear
+                      </button>
+                    </div>
+                  </form>
+                  {{ /Dinner }}
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="d-flex justify-content-center">
+              <h4>Totals</h4>
+            </div>
+            <div class="row">
+              <div class="table-responsive">
+                <table class="table" id="Totals">
+                  <thead>
+                    <tr>
+                      <th class="col">Protein</th>
+                      <th class="col">Fat</th>
+                      <th class="col">Carbs</th>
+                      <th class="col">Cal</th>
+                    </tr>
+                  </thead>
+                    {{!-- Populate these and allow user to input meal (interactive table? Javascript -> DOM?) --}}
+                  <tbody>
+                    <tr>
+                      <td>16</td>
+                      <td>8</td>
+                      <td>0</td>
+                      <td>110</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
