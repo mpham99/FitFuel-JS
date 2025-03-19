@@ -1,0 +1,28 @@
+[build]
+functions = "functions"
+publish = "public"
+
+[[redirects]]
+from = "/"
+to = "/.netlify/functions/index"
+status = 302
+
+[[redirects]]
+from = "/login"
+to = "/.netlify/functions/login"
+status = 200
+
+[[redirects]]
+from = "/home"
+to = "/.netlify/functions/home"
+status = 200
+
+[[redirects]]
+from = "/calculator"
+to = "/.netlify/functions/calculator"
+status = 200
+
+[[redirects]]
+from = "/workout"
+to = "/.netlify/functions/workout"
+status = 200
