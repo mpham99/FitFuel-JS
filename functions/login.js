@@ -2,7 +2,7 @@ const fs = require("fs");
 const mustache = require("mustache");
 
 exports.handler = async () => {
-    const template = fs.readFileSync("./views/login.mustache", "utf8");
+    const template = fs.readFileSync("./views/login_page.mustache", "utf8");
     const html = mustache.render(template, { loginnav: true });
 
     return {
