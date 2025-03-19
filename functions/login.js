@@ -1,13 +1,21 @@
 const fs = require("fs");
+const path = require("path");
 const mustache = require("mustache");
 
 exports.handler = async () => {
-    const template = fs.readFileSync("./views/login_page.mustache", "utf8");
-    const html = mustache.render(template, { loginnav: true });
+    const templatePath = path.join(__dirname, "../views/login_page.mustache");
 
-    return {
-        statusCode: 200,
-        headers: { "Content-Type": "text/html" },
-        body: html
-    };
+    try {
+        const template = fs.readFileSync(templatePath, "utf8");
+        const html = mustache.render(template, { loginnav: true });
+
+        return {
+            statusCode: 200,
+            headers: { "Content-Type": "text/html" },
+            body: html
+        };
+    } catch (error) {
+        console.error("Error loading template:", error);
+        return { statusCode: 500, body: "Internal Server Error" };
+    }
 };

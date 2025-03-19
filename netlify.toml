@@ -4,8 +4,8 @@ publish = "public"
 
 [[redirects]]
 from = "/"
-to = "/.netlify/functions/index"
-status = 302
+to = "/.netlify/functions/login"
+status = 200
 
 [[redirects]]
 from = "/login"
