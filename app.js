@@ -16,10 +16,8 @@ app.use(session({secret: 'keyboard cat'
 
 app.use(function(req,res,next) {
     req.TPL = {};
-    
-    
     next();
-    });
+});
 
 app.use("/home", async function(req, res, next) {
     req.TPL.workoutnav = true; next();
