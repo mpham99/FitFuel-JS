@@ -14,6 +14,17 @@ app.use(session({secret: 'keyboard cat'
     ,resave: false
     ,saveUninitialized:false}))
 
+// Auth guard
+app.use((req, res, next) => {
+    const publicPaths = ["/login", "/views"];
+    const isPublic = publicPaths.some(path => req.path.startsWith(path));
+
+    if (!req.session.username && !isPublic) {
+        return res.redirect("/login");
+    }
+    next();
+});
+
 app.use(function(req,res,next) {
     req.TPL = {};
     next();
