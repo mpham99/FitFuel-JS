@@ -1,11 +1,12 @@
 const express = require("express");
 const app = express();
 var router = express.Router();
-const Model = require("./../models/home.js");
+const Model = require("../models/userinfo.js");
 // const mustacheExpress = require("mustache-express");
 
 router.get("/", async function(req,res){
-    req.TPL.userInfo = await Model.getUserInfo();
+    const results = await Model.getUserByUsername(req.session.username);
+    req.TPL.userInfo = Model.transformValue(results);
     res.render("home_page", req.TPL);
 });
 

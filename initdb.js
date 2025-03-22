@@ -6,9 +6,9 @@ db.serialize(function() {
   // create information table
   db.run("DROP TABLE IF EXISTS Information");
   db.run("CREATE TABLE Information (goal INTEGER, sex INTEGER, macroPriority INTEGER," + 
-                                   "age INTEGER, weight REAL)");
+                                   "age INTEGER, weight REAL, username TEXT)");
 
-  db.run("INSERT INTO Information VALUES (?,?,?,?,?)", [1,1,1,40,180.5]);
+  db.run("INSERT INTO Information VALUES (?,?,?,?,?,?)", [1,1,1,40,180.5, "test3"]);
 
   // create breakfast table
   db.run("DROP TABLE IF EXISTS Breakfast");
