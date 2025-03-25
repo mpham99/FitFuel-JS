@@ -31,7 +31,7 @@ app.use(function(req,res,next) {
 });
 
 app.use("/home", async function(req, res, next) {
-    req.TPL.workoutnav = true; next();
+    req.TPL.homenav = true; next();
 });
 app.use("/calculator", function(req, res, next) {
     req.TPL.calculatornav = true; next();
