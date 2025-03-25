@@ -20,9 +20,19 @@ async function getUserInfo() {
     return await db.all("SELECT * FROM Information")
 }
 
-async function addUserInfo(params) {
-    const data = await db.all("UPDATE Information SET goal = ?, sex = ?, macroPriority = ?, age = ?, weight = ?",
-        params["Goal"], params["Sex"],params["Diet"],params["age"],params["weight"]);
+async function createUserInfo(params, username) {
+    await db.run("INSERT INTO Information VALUES (?,?,?,?,?,?)",
+        [params["Goal"], params["Sex"],params["Diet"],params["age"], 0, username]);
+}
+
+async function updateUserInfoWithoutWeight(params, username) {
+    await db.run("UPDATE Information SET goal = ?, sex = ?, macroPriority = ?, age = ? WHERE username = ?",
+        [params["Goal"], params["Sex"],params["Diet"],params["age"], username]);
+}
+
+async function updateUserWeight(weight, username) {
+    await db.run("UPDATE Information SET weight = ? WHERE username = ?",
+        [weight, username]);
 }
 
 async function getUserByUsername(username) {
@@ -66,4 +76,4 @@ function transformValue(input) {
     return transformed;
 }
 
-module.exports = {getUserInfo, addUserInfo, getUserByUsername, transformValue};
+module.exports = {getUserInfo, updateUserInfoWithoutWeight, getUserByUsername, transformValue, updateUserWeight};
