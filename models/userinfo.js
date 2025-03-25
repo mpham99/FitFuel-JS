@@ -76,4 +76,4 @@ function transformValue(input) {
     return transformed;
 }
 
-module.exports = {getUserInfo, updateUserInfoWithoutWeight, getUserByUsername, transformValue, updateUserWeight};
+module.exports = {getUserInfo, createUserInfo, updateUserInfoWithoutWeight, getUserByUsername, transformValue, updateUserWeight};

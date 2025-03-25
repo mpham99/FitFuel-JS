@@ -32,67 +32,60 @@
                 </div>
 
                 <div class="mt-2 mb-2 p-2" id="Userinfo">
-                    <ul>
-                        {{#userInfo}}
+                    {{#userInfo}}
+                        <ul>
                             <li>Goal: {{goal}}</li>
                             <li>Sex: {{sex}}</li>
                             <li>Macro Priority: {{macroPriority}}</li>
                             <li>Age: {{age}}</li>
                             <li>Weight: {{weight}}</li>
-                        {{/userInfo}}
-                    </ul>
+                        </ul>
+                        <div class="text-center">
+                            <button class="btn btn-sm btn-outline-primary mt-2" onclick="toggleEditForm()">Edit</button>
+                        </div>
+                    <form id="userEditForm" action="/home/update_entry" method="POST" style="display: none;" class="mt-3 p-2">
+                    {{/userInfo}}
 
-                    <div class="text-center">
-                        <button class="btn btn-sm btn-outline-primary mt-2" onclick="toggleEditForm()">Edit</button>
+                    {{^userInfo}}
+                        <p>Welcome! Please fill out your information below:</p>
+                    <form id="userEditForm" action="/home/new_entry" method="POST" class="mt-3 p-2">
+                    {{/userInfo}}
+
+                    <div class="form-group mb-2">
+                        <label for="Goal">Goal</label>
+                        <select class="form-control" name="Goal">
+                            <option value="0">Fat Loss</option>
+                            <option value="1">Maintain Weight</option>
+                            <option value="2">Gain Muscle</option>
+                        </select>
                     </div>
 
-                    <form
-                            id="userEditForm"
-                            action="/home/form_entry"
-                            method="POST"
-                            style="display: none;"
-                            class="mt-3 p-2"
-                    >
-                        <div class="form-group mb-2">
-                            <label for="Goal">Goal</label>
-                            <select class="form-control" name="Goal">
-                                <option value="0">Fat Loss</option>
-                                <option value="1">Maintain Weight</option>
-                                <option value="2">Gain Muscle</option>
-                            </select>
-                        </div>
+                    <div class="form-group mb-2">
+                        <label for="Sex">Sex</label>
+                        <select class="form-control" name="Sex">
+                            <option value="0">Female</option>
+                            <option value="1">Male</option>
+                        </select>
+                    </div>
 
-                        <div class="form-group mb-2">
-                            <label for="Sex">Sex</label>
-                            <select class="form-control" name="Sex">
-                                <option value="0">Female</option>
-                                <option value="1">Male</option>
-                            </select>
-                        </div>
+                    <div class="form-group mb-2">
+                        <label for="Diet">Macro Priority</label>
+                        <select class="form-control" name="Diet">
+                            <option value="0">Lower Carb</option>
+                            <option value="1">Moderate Carb</option>
+                            <option value="2">Higher Carb</option>
+                        </select>
+                    </div>
 
-                        <div class="form-group mb-2">
-                            <label for="Diet">Macro Priority</label>
-                            <select class="form-control" name="Diet">
-                                <option value="0">Lower Carb</option>
-                                <option value="1">Moderate Carb</option>
-                                <option value="2">Higher Carb</option>
-                            </select>
-                        </div>
+                    <div class="form-group mb-2">
+                        <label for="age">Age</label>
+                        <input type="number" class="form-control" name="age" required/>
+                    </div>
 
-                        <div class="form-group mb-2">
-                            <label for="age">Age</label>
-                            <input type="number" class="form-control" name="age" required/>
-                        </div>
-
-                        <!--                        <div class="form-group mb-2">-->
-                        <!--                            <label for="weight">Weight</label>-->
-                        <!--                            <input type="number" class="form-control" name="weight" required/>-->
-                        <!--                        </div>-->
-
-                        <div class="text-center">
-                            <button type="submit" class="btn btn-success">Save</button>
-                        </div>
-                    </form>
+                    <div class="text-center">
+                        <button type="submit" class="btn btn-success">Save</button>
+                    </div>
+                </form>
                 </div>
 
             </div>
@@ -106,7 +99,14 @@
                     <h3>Weight Tracker</h3>
                 </div>
 
-                <div class="mt-2 p-2" id="Userinfo">
+        {{^userInfo}}
+            <div class="alert alert-danger mt-2" role="alert">
+                Please add user information to enable weight tracking feature!
+            </div>
+        {{/userInfo}}
+
+        {{#userInfo}}
+        <div class="mt-2 p-2" id="Userinfo">
                     <form action="/home/weight-entry" method="POST" class="mt-2">
                         <div class="form-group mb-2">
                             <label for="newWeight">Enter Today's Weight</label>
@@ -131,6 +131,7 @@
                 </div>
             </div>
         </div>
+        {{/userInfo}}
 
     </div>
 </div>

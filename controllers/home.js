@@ -8,16 +8,20 @@ const WeightLogModel = require("../models/weightlog.js");
 router.get("/", async function(req,res){
     // Get user info
     let results = await UserInfoModel.getUserByUsername(req.session.username);
-    req.TPL.userInfo = UserInfoModel.transformValue(results);
+    if (results) req.TPL.userInfo = UserInfoModel.transformValue(results);
     // Get user weight records
     results = await WeightLogModel.getAllWeights(req.session.username);
-    req.TPL.weightHistory = results;
+    if (results) req.TPL.weightHistory = results;
     res.render("home_page", req.TPL);
 });
 
-router.post("/form_entry", async function(req, res) {
-    console.log("Storing User Settings and Information");
+router.post("/update_entry", async function(req, res) {
     await UserInfoModel.updateUserInfoWithoutWeight(req.body, req.session.username);
+    res.redirect("/home");
+});
+
+router.post("/new_entry", async function(req, res) {
+    await UserInfoModel.createUserInfo(req.body, req.session.username);
     res.redirect("/home");
 });
 
