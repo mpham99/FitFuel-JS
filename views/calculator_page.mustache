@@ -315,10 +315,9 @@
                     {{!-- Populate these and allow user to input meal (interactive table? Javascript -> DOM?) --}}
                   <tbody>
                     <tr>
-                      <td>16</td>
-                      <td>8</td>
-                      <td>0</td>
-                      <td>110</td>
+                      {{#totals}}
+                      <td>{{.}}</td>
+                      {{/totals}}
                     </tr>
                   </tbody>
                 </table>

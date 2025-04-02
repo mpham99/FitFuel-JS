@@ -38,6 +38,8 @@ router.get("/closeBreakfastForm", async function(req,res) {
     req.session.DisplayCloseLink = false;
     req.session.DisplayFormLink = true;
     req.session.breakfast = false;
+    req.session.lunch = false;
+    req.session.dinner = false;
     res.redirect("/calculator");
 });
 

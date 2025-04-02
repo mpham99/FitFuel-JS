@@ -137,9 +137,37 @@ async function deploySavedMeal(params) {
 
 //Returns the Totals from Breakfast, Lunch, Dinner
 async function getTotals() {
-    const proteinBreakfast = await db.all("SELECT Protein FROM Breakfast");
-    console.log(proteinBreakfast);
-    return proteinBreakfast
+    const breakfastTable = await db.all("Select * FROM Breakfast");
+    const lucnhTable = await db.all("Select * FROM Lunch");
+    const dinnerTable = await db.all("Select * FROM Dinner");
+    
+    let totalProtein = 0;
+    let totalFat = 0;
+    let totalCarbs = 0;
+    let totalCals = 0;
+
+    await breakfastTable.forEach(element => {
+        totalProtein = totalProtein + Number(element.Protein);
+        totalFat = totalFat + Number(element.Fat);
+        totalCarbs = totalCarbs + Number(element.Carbs);
+        totalCals = totalCals + Number(element.Cals);
+    });
+    await lucnhTable.forEach(element => {
+        totalProtein = totalProtein + Number(element.Protein);
+        totalFat = totalFat + Number(element.Fat);
+        totalCarbs = totalCarbs + Number(element.Carbs);
+        totalCals = totalCals + Number(element.Cals);
+    });
+    await dinnerTable.forEach(element => {
+        totalProtein = totalProtein + Number(element.Protein);
+        totalFat = totalFat + Number(element.Fat);
+        totalCarbs = totalCarbs + Number(element.Carbs);
+        totalCals = totalCals + Number(element.Cals);
+    });
+  
+    totals = [];
+    totals.push(totalProtein,totalFat,totalCarbs,totalCals);
+    return totals
 };
 
 module.exports = {getBreakfastInfo, addBreakfastInfo, deleteBreakfast, deleteBreakfastInfo, saveMeal, deleteSavedMeal, deleteDinner, deleteDinnerInfo, addDinnerInfo, getDinnerInfo, getLunchInfo, addLunchInfo, deleteLunch, deleteLunchInfo, deploySavedMeal, getSavedMeals, deployMealBreakfast, deployMealLunch, deployMealDinner, getTotals};
