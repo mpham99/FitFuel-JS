@@ -35,7 +35,7 @@ router.post("/", async function(req, res) {
             res.render("login_page", req.TPL);
         }
     } else {
-        req.session.username = 'test1';
+        req.session.username = 'newusertest';
         res.redirect("/home");
     }
 });
